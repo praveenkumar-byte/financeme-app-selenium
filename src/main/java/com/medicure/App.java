@@ -31,8 +31,7 @@ public class App
 
       // Setup configuration
       ChromeOptions chromeOptions = new ChromeOptions();
-    //   chromeOptions.addArguments("--headless=new"); // Use the new headless mode
-    //   chromeOptions.addArguments("--disable-gpu"); // Disable GPU for headless mode
+  chromeOptions.addArguments("--headless=new"); // Use the new headless mode  chromeOptions.addArguments("--disable-gpu"); // Disable GPU for headless mode
       chromeOptions.addArguments("--no-sandbox"); // Bypass OS security model, necessary for Jenkins
       chromeOptions.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
       chromeOptions.addArguments("--remote-debugging-port=9222"); // Add remote debugging port
