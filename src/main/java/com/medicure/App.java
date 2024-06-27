@@ -75,7 +75,7 @@ public class App
           
 
           // Take screenshot
-          TakesScreenshot scrShot = ((TakesScree    nshot) driver);
+          TakesScreenshot scrShot = ((TakesScreenshot) driver);
           File scrFile = scrShot.getScreenshotAs(OutputType.FILE);
           File destFile = new File("target/surefire-reports/test-report.jpg");
           FileUtils.copyFile(scrFile, destFile);
