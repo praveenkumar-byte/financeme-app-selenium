@@ -1,20 +1,19 @@
 package com.medicure;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-// import org.openqa.selenium.By.ByXPath;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class App {
@@ -50,10 +49,17 @@ public class App {
 
             WebElement messageField = driver.findElement(By.id("comment"));
             messageField.sendKeys("Excellent");
+            
+            WebDriverWait wait = new WebDriverWait(driver, 20);
+            WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div/div/div/div[1]/div/div")));
 
-            // Submit button to form
-            WebElement submitButton = driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[1]/div/div"));
-            submitButton.click();
+            try {
+                // Attempt to click the submit button
+                submitButton.click();
+            } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+                // If click intercepted, use JavaScript to click
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitButton);
+            }
 
             // Get response
             String response = driver.findElement(By.id("message")).getText();
